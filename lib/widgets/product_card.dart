@@ -12,28 +12,44 @@ class ProductCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Column(
         children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: Stack(
-              children: [
-                Image.network(
-                  product.thumbnail,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.favorite_border_outlined,
-                        size: 20,
-                      ),
-                      onPressed: () {},
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: AspectRatio(
+              aspectRatio: 4 / 3,
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                  ],
-                ),
-              ],
+                    padding: const EdgeInsets.all(12),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        product.thumbnail,
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.favorite_border_outlined,
+                          size: 20,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -48,6 +64,7 @@ class ProductCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
+                        color: Colors.grey,
                       ),
                     ),
                     Row(
@@ -58,40 +75,38 @@ class ProductCard extends StatelessWidget {
                           color: Colors.amber.shade600,
                         ),
                         Text(
-                          product.rating.toString(),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          '(${product.rating})',
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ],
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  product.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 14),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    product.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                Text(
-                  '₹${product.price}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                const SizedBox(height: 2),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '₹${product.price}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
-            ),
-          ),
-          Divider(height: 8),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: OutlinedButton.icon(
-              label: const Text("Add To Cart"),
-              icon: const Icon(Icons.add_shopping_cart, size: 20),
-              onPressed: () {},
             ),
           ),
         ],
