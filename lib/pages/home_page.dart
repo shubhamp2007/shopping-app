@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/my_products.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/search_page.dart';
 import 'package:shopping_app/widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,14 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(right: 8),
             child: Row(
               children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const SearchPage()),
+                    );
+                  },
+                  icon: Icon(Icons.search),
+                ),
                 IconButton(onPressed: () {}, icon: Icon(Icons.account_circle)),
               ],
             ),
