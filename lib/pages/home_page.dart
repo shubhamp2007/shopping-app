@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/models/my_products.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/search_page.dart';
+import 'package:shopping_app/pages/profile_page.dart';
 import 'package:shopping_app/widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,7 +50,14 @@ class _HomePageState extends State<HomePage> {
                   },
                   icon: Icon(Icons.search),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.account_circle)),
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const ProfilePage()),
+                    );
+                  },
+                  icon: Icon(Icons.account_circle),
+                ),
               ],
             ),
           ),
@@ -64,6 +72,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(16),
                 child: Card(
                   color: Colors.white,
+                  clipBehavior: Clip.antiAlias,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 24),
                     child: Row(
@@ -149,10 +158,6 @@ class _HomePageState extends State<HomePage> {
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                                 colors: [Colors.white, Colors.amber.shade300],
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(12),
-                                bottomRight: Radius.circular(12),
                               ),
                             ),
                             child: Image.network(
