@@ -1,17 +1,23 @@
-# shopping_app
+# Bytekart
 
-A new Flutter project.
+A shopping app built using flutter.
 
-## Getting Started
+## Pages
+- Home
+- Wishlist
+- Cart
+- Profile
+- Orders
+- Deals
+- Trending Products
+- Search Products
 
-This project is a starting point for a Flutter application.
+## Features Implemented
+- Adding / removing products to cart
+- Wishlisting / unwishlisting a product
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Todo
+- Add storage for cart and wishlist
+- Implement ordering system
+- Use API for products
+- Update UI
