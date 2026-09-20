@@ -133,13 +133,18 @@ class _ProductPageState extends State<ProductPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            product.title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              product.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
+                          const SizedBox(width: 8),
                           Row(
                             children: [
                               Icon(

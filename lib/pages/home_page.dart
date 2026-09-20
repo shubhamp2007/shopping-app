@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/my_products.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/deals_page.dart';
 import 'package:shopping_app/pages/search_page.dart';
 import 'package:shopping_app/pages/profile_page.dart';
+import 'package:shopping_app/pages/trending_now_page.dart';
 import 'package:shopping_app/widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -140,7 +142,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 10),
                             FilledButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const DealsPage(),
+                                  ),
+                                );
+                              },
                               icon: const Icon(Icons.arrow_forward, size: 16),
                               label: const Text('Shop Now'),
                               iconAlignment: IconAlignment.end,
@@ -186,7 +194,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const TrendingNowPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'View All',
                         style: TextStyle(fontWeight: FontWeight.w600),
