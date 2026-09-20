@@ -43,8 +43,72 @@ class _CartPageState extends State<CartPage> {
               separatorBuilder: (context, index) => const SizedBox(height: 16),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Order Summary',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          _Row(label: 'Sub Total:', value: '₹$_total'),
+                          const SizedBox(height: 8),
+                          _Row(label: 'Discount:', value: '₹00.0'),
+                          const SizedBox(height: 8),
+                          _Row(label: 'Tax:', value: '₹00.0'),
+                          const Divider(height: 24),
+                          _Row(label: 'Total', value: '₹$_total', bold: true),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class _Row extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool bold;
+
+  const _Row({required this.label, required this.value, this.bold = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final style = TextStyle(
+      fontSize: bold ? 16 : 14,
+      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      color: bold ? Colors.black : Colors.grey.shade600,
+    );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: style),
+        Text(value, style: style.copyWith(color: Colors.black)),
+      ],
     );
   }
 }
