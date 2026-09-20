@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/managers/cart_wishlist_manager.dart';
 import 'package:shopping_app/pages/cart_page.dart';
 import 'package:shopping_app/pages/wishlist_page.dart';
 import 'package:shopping_app/pages/home_page.dart';
@@ -26,6 +27,8 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
+    final manager = CartWishlistManager.instance;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -37,20 +40,36 @@ class _MainState extends State<Main> {
       ),
       home: Scaffold(
         body: _pages[_selectedIndex],
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: _navigateBottomBar,
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(
-              icon: Icon(Icons.favorite_rounded),
-              label: 'Wishlist',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
-            ),
-          ],
+        bottomNavigationBar: ListenableBuilder(
+          listenable: manager,
+          builder: (context, _) {
+            return NavigationBar(
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: _navigateBottomBar,
+              destinations: [
+                const NavigationDestination(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  icon: Badge(
+                    isLabelVisible: manager.wishlistCount > 0,
+                    label: Text('${manager.wishlistCount}'),
+                    child: const Icon(Icons.favorite_rounded),
+                  ),
+                  label: 'Wishlist',
+                ),
+                NavigationDestination(
+                  icon: Badge(
+                    isLabelVisible: manager.cartCount > 0,
+                    label: Text('${manager.cartCount}'),
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+                  label: 'Cart',
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/managers/cart_wishlist_manager.dart';
+import 'package:shopping_app/pages/cart_page.dart';
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -11,9 +13,9 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int _selectedImageIndex = 0;
-  bool _isWishlisted = false;
   int _quantity = 1;
   late final PageController _pageController;
+  final _manager = CartWishlistManager.instance;
 
   @override
   void initState() {
@@ -36,6 +38,10 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
+  void _addToCart() {
+    _manager.addToCart(widget.product, quantity: _quantity);
+  }
+
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
@@ -51,13 +57,17 @@ class _ProductPageState extends State<ProductPage> {
           overflow: TextOverflow.ellipsis,
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              _isWishlisted ? Icons.favorite : Icons.favorite_border,
-              color: _isWishlisted ? Colors.red : null,
-            ),
-            onPressed: () {
-              setState(() => _isWishlisted = !_isWishlisted);
+          ListenableBuilder(
+            listenable: _manager,
+            builder: (context, _) {
+              final wishlisted = _manager.isWishlisted(product);
+              return IconButton(
+                icon: Icon(
+                  wishlisted ? Icons.favorite : Icons.favorite_border,
+                  color: wishlisted ? Colors.red : null,
+                ),
+                onPressed: () => _manager.toggleWishlist(product),
+              );
             },
           ),
         ],
@@ -255,9 +265,27 @@ class _ProductPageState extends State<ProductPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Add to Cart'),
+                  child: ListenableBuilder(
+                    listenable: _manager,
+                    builder: (context, _) {
+                      final inCart = _manager.isInCart(widget.product);
+                      return OutlinedButton.icon(
+                        onPressed: inCart
+                            ? () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const CartPage(),
+                                ),
+                              )
+                            : _addToCart,
+                        icon: Icon(
+                          inCart
+                              ? Icons.shopping_cart
+                              : Icons.add_shopping_cart,
+                        ),
+                        label: Text(inCart ? 'Go to Cart' : 'Add to Cart'),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),
