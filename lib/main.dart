@@ -31,6 +31,7 @@ class _MainState extends State<Main> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: "Bytekart",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.grey,
